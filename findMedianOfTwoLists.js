@@ -12,7 +12,7 @@ const findMedianOfTwoLists = (listA, listB) => {
     return getAverage(listB[0], listA[n - 1]);
   }
 
-  // base case, n is 2 -> concat the two lists and return median of those 4 numbers
+  // base case, n is 2 -> get average of the max of the mins + the min of the maxes
   if (n === 2) {
     return getAverage(
       Math.max(listA[0], listB[0]),
