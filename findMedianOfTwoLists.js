@@ -1,12 +1,15 @@
 const findMedianOfTwoLists = (listA, listB) => {
-  const n = listA.length;
-
-  // helper func to calculate avg of two nums
+  // helper func - calculate avg of two nums
   const getAverage = (a, b) => (a + b) / 2;
 
-  // edge case, n < 2
-  if (n === 1) {
-    return getAverage(listA[0], listB[0]);
+  const n = listA.length;
+
+  // optimization - if the lists' ranges don't overlap, immediately return medians
+  if (listA[0] > listB[n - 1]) {
+    return getAverage(listA[0], listB[n - 1]);
+  }
+  if (listB[0] > listA[n - 1]) {
+    return getAverage(listB[0], listA[n - 1]);
   }
 
   // base case, n is 2 -> concat the two lists and return median of those 4 numbers
@@ -50,6 +53,11 @@ const expect = (actual, expected) => {
 var listA = [1];
 var listB = [3];
 expect(findMedianOfTwoLists(listA, listB), 2);
+
+// n < 2, edge case, nums are the same
+var listA = [3];
+var listB = [3];
+expect(findMedianOfTwoLists(listA, listB), 3);
 
 // n is odd, all numbers in one list are smaller than all nums in other
 listA = [1, 2, 3];
