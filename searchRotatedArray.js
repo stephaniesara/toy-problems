@@ -5,37 +5,44 @@
 // You may assume no duplicate exists in the array.
 // Your algorithm's runtime complexity must be in the order of O(log n).
 
-// halve array using slice
-const searchRotatedArray = (arr, target) => {
-  const start = 0;
-  const end = arr.length;
-  const mid = Math.floor(end / 2);
+// halve array using pointers
+const searchRotatedArray = (arr, target, start = 0, end) => {
+  // define end if not provided, i.e. upon first iteration
+  end = end === undefined ? arr.length : end;
+
+  // calculate midpoint
+  let mid = Math.floor((end + start) / 2);
 
   // base cases
+  // target is found at midpoint
   if (target === arr[mid]) {
     return mid;
   }
-  if (arr.length === 1) {
+  // target is not found
+  if (start >= end - 1) {
     return -1;
   }
 
-  // helpers
+  // helpers - recursively search elems to left or right of midpoint
   const searchLeft = () => {
-    return searchRotatedArray(arr.slice(start, mid), target);
+    return searchRotatedArray(arr, target, start, mid);
   };
   const searchRight = () => {
-    return searchRotatedArray(arr.slice(mid, end), target);
+    mid = end % 2 ? mid + 1 : mid;
+    return searchRotatedArray(arr, target, mid, end);
   };
 
-  // recursively search left or right half
-  if (target > arr[mid]) {
-    if (target > arr[end - 1]) {
+  // four cases to determine which half of array to search
+  // if left half is sorted
+  if (arr[start] < arr[mid]) {
+    if (target < arr[mid] && target >= arr[start]) {
       return searchLeft();
     }
-    return mid + searchRight();
+    return searchRight();
   } else {
-    if (target < arr[start]) {
-      return mid + searchRight();
+    // otherwise right half must be sorted
+    if (target > arr[mid] && target <= arr[end - 1]) {
+      return searchRight();
     }
     return searchLeft();
   }
@@ -50,7 +57,8 @@ const expect = (actual, expected) => {
 // array is sorted but not rotated, target is found
 let input = [0, 1, 2, 4, 6, 9];
 let target = 6;
-expect(searchRotatedArray(input, target), 4);
+let expected = 4;
+expect(searchRotatedArray(input, target), expected);
 
 // array is sorted but not rotated, target is NOT found
 input = [0, 1, 2, 4, 6, 9];
@@ -72,40 +80,67 @@ input = [7, 0, 1, 2, 4, 5, 6];
 target = 8;
 expect(searchRotatedArray(input, target), -1);
 
-// halve array using pointers
-// const searchRotatedArray = (arr, target, start = 0, end) => {
-//   // define end if not provided, i.e. upon first iteration
-//   end = end === undefined ? arr.length - 1 : end;
+// leetcode test
+input = [4, 5, 6, 7, 8, 1, 2, 3];
+target = 8;
+expect(searchRotatedArray(input, target), 4);
 
-//   // calculate midpoint
-//   const mid = Math.floor((end + start) / 2);
+// leetcode test
+input = [4, 5, 6, 7, 0, 1, 2];
+target = 0;
+expect(searchRotatedArray(input, target), 4);
 
-//   // base cases
-//   // target is found at midpoint
+// leetcode test
+input = [4, 5, 6, 7, 0, 1, 2];
+target = 6;
+expect(searchRotatedArray(input, target), 2);
+
+// leetcode test
+input = [7, 8, 1, 2, 3, 4, 5, 6];
+target = 2;
+expected = 3;
+expect(searchRotatedArray(input, target), expected);
+
+// leetcode test
+input = [3, 5, 1];
+target = 1;
+expected = 2;
+expect(searchRotatedArray(input, target), expected);
+
+// // halve array using slice
+// const searchRotatedArray = (arr, target) => {
+//   const end = arr.length;
+//   let mid = Math.floor(end / 2);
+
 //   if (target === arr[mid]) {
 //     return mid;
 //   }
-//   // target is not found
-//   if (start >= end) {
+//   if (arr.length <= 1) {
 //     return -1;
 //   }
 
-//   // helpers - recursively search elems to left or right of midpoint
 //   const searchLeft = () => {
-//     return searchRotatedArray(arr, target, start, mid);
+//     return searchRotatedArray(arr.slice(0, mid), target);
 //   };
 //   const searchRight = () => {
-//     return searchRotatedArray(arr, target, mid + 1, end);
+//     mid = end % 2 ? mid + 1 : mid;
+//     let nextIteration = searchRotatedArray(arr.slice(mid), target);
+//     if (nextIteration !== -1) {
+//       return nextIteration + mid;
+//     } else {
+//       return nextIteration;
+//     }
 //   };
 
-//   // four cases to determine which half of array to search
-//   if (target > arr[mid]) {
-//     if (target > arr[end]) {
+//   // if left half is sorted
+//   if (arr[0] <= arr[mid]) {
+//     if (target < arr[mid] && target >= arr[0]) {
 //       return searchLeft();
 //     }
 //     return searchRight();
 //   } else {
-//     if (target < arr[start]) {
+//     // otherwise right half must be sorted
+//     if (target > arr[mid] && target <= arr[end - 1]) {
 //       return searchRight();
 //     }
 //     return searchLeft();
