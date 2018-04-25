@@ -14,8 +14,10 @@ const findMedianOfTwoLists = (listA, listB) => {
 
   // base case, n is 2 -> concat the two lists and return median of those 4 numbers
   if (n === 2) {
-    const combined = listA.concat(listB).sort();
-    return getAverage(combined[1], combined[2]);
+    return getAverage(
+      Math.max(listA[0], listB[0]),
+      Math.min(listA[1], listB[1])
+    );
   }
 
   // get elements at midpoints
