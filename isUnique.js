@@ -1,8 +1,11 @@
-// CTCI 90
+// CTCI 1.1
 // Implement an algo to determine if a string has all unique chars.
 // What if you cannot use addtl data structures?
 
 const isUnique = str => {
+  if (str.length > 128) {
+    return false; // for non-extended ASCII
+  }
   let uniques = {};
   for (let i = 0; i < str.length; i++) {
     const char = str[i];

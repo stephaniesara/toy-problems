@@ -1,4 +1,4 @@
-// CTCI 90
+// CTCI 1.3
 // Write a method to replace all spaces in a str with '%20'
 // Assume: str has space at end to hold addtl char
 // Assume: you are given the "true" length of the str

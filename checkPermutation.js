@@ -1,4 +1,4 @@
-// CTCI 90
+// CTCI 1.2
 // Given two str, write method to decide if one is permutation of other
 
 const checkPermutation = (str1, str2) => {
