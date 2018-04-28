@@ -3,21 +3,34 @@
 // What if you cannot use addtl data structures?
 
 const isUnique = str => {
-  if (str.length < 2) {
-    return true;
-  }
-  let sorted = str.split("").sort(); // O(n log n)
-  let prev = sorted[0];
-  for (let i = 1; i < str.length; i++) {
-    // O(n)
-    let curr = sorted[i];
-    if (curr === prev) {
+  let uniques = {};
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+    if (uniques[char]) {
       return false;
     }
-    prev = curr;
+    uniques[char] = true;
   }
+
   return true;
 };
+
+// const isUnique = str => {
+//   if (str.length < 2) {
+//     return true;
+//   }
+//   let sorted = str.split("").sort(); // O(n log n)
+//   let prev = sorted[0];
+//   for (let i = 1; i < str.length; i++) {
+//     // O(n)
+//     let curr = sorted[i];
+//     if (curr === prev) {
+//       return false;
+//     }
+//     prev = curr;
+//   }
+//   return true;
+// };
 
 // TESTS ------------------------
 
