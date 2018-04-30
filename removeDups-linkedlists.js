@@ -22,14 +22,12 @@
 const removeDups = list => {
   let curr = list.head;
   while (curr) {
-    let prev = curr;
-    let compare = curr.next;
-    while (compare) {
-      if (compare.value === curr.value) {
-        list.removeNode(curr, prev);
+    let runner = curr;
+    while (runner && runner.next) {
+      if (runner.next.value === curr.value) {
+        list.removeNode(runner.next, runner);
       }
-      prev = compare;
-      compare = compare.next;
+      runner = runner.next;
     }
     curr = curr.next;
   }
