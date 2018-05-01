@@ -3,18 +3,23 @@
 // of a singly linked list
 
 const returnKthToLast = (list, k) => {
-  if (k >= list.count || k < 0) {
+  if (k < 0) {
     return null;
   }
-  let index = 0;
-  let curr = list.head;
-  while (curr) {
-    index++;
-    if (index === list.count - k) {
-      return curr.value;
+  let A = list.head;
+  let B = list.head;
+  for (var i = 0; i < k; i++) {
+    if (B.next) {
+      B = B.next;
+    } else {
+      return null;
     }
-    curr = curr.next;
   }
+  while (B && B.next) {
+    B = B.next;
+    A = A.next;
+  }
+  return A.value;
 };
 
 // LINKED LIST IMPLEMENTATION ------------------
@@ -23,11 +28,6 @@ var LinkedList = function() {
   var list = {};
   list.head = null;
   list.tail = null;
-  list.count = 0;
-
-  list.countNodes = function() {
-    return this.count;
-  };
 
   list.removeNode = function(curr, prev) {
     // if (!prev) {
@@ -98,23 +98,21 @@ const expect = (actual, expected) => {
 };
 
 let linkedList = LinkedList();
-expect(linkedList.countNodes(), 0);
 linkedList.addToTail(4);
 linkedList.addToTail(5);
 linkedList.addToTail(6);
 expect(linkedList.contains(4), true);
-expect(linkedList.countNodes(), 3);
 
-let k = 0;
-let expected = 6;
-expect(returnKthToLast(linkedList, k), expected);
-
-k = 1;
-expected = 5;
+let k = 1;
+let expected = 5;
 expect(returnKthToLast(linkedList, k), expected);
 
 k = 2;
 expected = 4;
+expect(returnKthToLast(linkedList, k), expected);
+
+k = 0;
+expected = 6;
 expect(returnKthToLast(linkedList, k), expected);
 
 k = 3;
