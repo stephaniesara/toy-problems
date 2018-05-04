@@ -9,9 +9,9 @@ const appleStocks = input => {
   let maxDiff = input[1] - input[0];
   let min = input[0];
 
-  for (let i = 2; i < len; i++) {
-    min = Math.min(min, input[i - 1]);
+  for (let i = 1; i < len; i++) {
     maxDiff = Math.max(maxDiff, input[i] - min);
+    min = Math.min(min, input[i]);
   }
 
   return maxDiff;
