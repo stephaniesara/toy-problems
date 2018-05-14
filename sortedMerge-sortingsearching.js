@@ -9,7 +9,6 @@
  * @param {number} n
  * @return {void} Do not return anything, modify nums1 in-place instead.
  */
-
 var merge = function(nums1, m, nums2, n) {
   let writeInd = m + n - 1;
   let read1 = m - 1;
@@ -17,20 +16,15 @@ var merge = function(nums1, m, nums2, n) {
 
   const write = (arr, ind) => {
     nums1[writeInd] = arr[ind];
-    return ind - 1;
   };
 
-  while (writeInd >= 0) {
-    if (read1 >= 0 && read2 >= 0) {
-      if (nums1[read1] >= nums2[read2]) {
-        read1 = write(nums1, read1);
-      } else {
-        read2 = write(nums2, read2);
-      }
-    } else if (read2 >= 0) {
-      read2 = write(nums2, read2);
+  while (read2 >= 0) {
+    if (read1 >= 0 && nums1[read1] >= nums2[read2]) {
+      nums1[writeInd] = nums1[read1];
+      read1--;
     } else {
-      break;
+      nums1[writeInd] = nums2[read2];
+      read2--;
     }
     writeInd--;
   }
