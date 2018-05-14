@@ -14,10 +14,6 @@ var merge = function(nums1, m, nums2, n) {
   let read1 = m - 1;
   let read2 = n - 1;
 
-  const write = (arr, ind) => {
-    nums1[writeInd] = arr[ind];
-  };
-
   while (read2 >= 0) {
     if (read1 >= 0 && nums1[read1] >= nums2[read2]) {
       nums1[writeInd] = nums1[read1];
