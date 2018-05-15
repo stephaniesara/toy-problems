@@ -4,12 +4,21 @@
 // Count how many possible ways the child can run up the stairs
 
 const tripleStep = n => {
-  if (n === 0) {
-    return 1;
-  } else if (n < 0) {
-    return 0;
-  }
-  return tripleStep(n - 1) + tripleStep(n - 2) + tripleStep(n - 3);
+  const countSteps = n => {
+    if (n === 0) {
+      return 1;
+    } else if (n < 0) {
+      return 0;
+    } else {
+      if (!memo[n]) {
+        memo[n] = countSteps(n - 1) + countSteps(n - 2) + countSteps(n - 3);
+      }
+      return memo[n];
+    }
+  };
+
+  let memo = {};
+  return countSteps(n);
 };
 
 // TESTS ----------------------------------
