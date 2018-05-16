@@ -20,7 +20,16 @@ class BSTree {
     this.right = null;
   }
 
-  connectLists(left, right) {
+  convertBSTToLinkedList() {
+    if (this === null) {
+      return null;
+    }
+    let left = this.left ? this.left.convertBSTToLinkedList() : null;
+    let right = this.right ? this.right.convertBSTToLinkedList() : null;
+    return this._connectLists(left, right); // return head of connected lists
+  }
+
+  _connectLists(left, right) {
     let head = this;
     let tail = this;
     if (left) {
@@ -41,15 +50,6 @@ class BSTree {
     head.left = tail;
     tail.right = head;
     return head;
-  }
-
-  convertBSTToLinkedList() {
-    if (this === null) {
-      return null;
-    }
-    let left = this.left ? this.left.convertBSTToLinkedList() : null;
-    let right = this.right ? this.right.convertBSTToLinkedList() : null;
-    return this.connectLists(left, right); // return head of connected lists
   }
 }
 
