@@ -21,9 +21,6 @@ class BSTree {
   }
 
   convertBSTToLinkedList() {
-    if (this === null) {
-      return null;
-    }
     let left = this.left ? this.left.convertBSTToLinkedList() : null;
     let right = this.right ? this.right.convertBSTToLinkedList() : null;
     return this._connectLists(left, right); // return head of connected lists
