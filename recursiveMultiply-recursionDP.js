@@ -1,3 +1,6 @@
+// CTCI 8.5
+// recursively multiple without using *
+
 const recursiveMultiply = (a, b) => {
   let smaller = a >= b ? b : a;
   let bigger = a >= b ? a : b;
@@ -31,3 +34,4 @@ console.log(recursiveMultiply(2, 5)); // 10
 console.log(recursiveMultiply(7, 9)); // 63
 console.log(recursiveMultiply(8, 10)); // 80
 console.log(recursiveMultiply(11, 6)); // 66
+console.log(recursiveMultiply(9, 9)); // 81
