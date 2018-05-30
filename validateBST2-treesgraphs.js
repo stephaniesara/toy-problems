@@ -12,15 +12,18 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-var isValidBST = function(root, min, max) {
+var isValidBST = function(root, floor, ceil) {
   if (root === null) {
     return true;
   }
-  if ((min && root.value <= min) || (max && root.value >= max)) {
+  if (
+    (floor !== null && root.val <= floor) ||
+    (ceil !== null && root.val >= ceil)
+  ) {
     return false;
   }
   return (
-    isValidBST(root.left, min, root.value) &&
-    isValidBST(root.right, root.value, max)
+    isValidBST(root.left, floor, root.val) &&
+    isValidBST(root.right, root.val, ceil)
   );
 };
