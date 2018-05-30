@@ -7,19 +7,43 @@
 
 const Tree = require("./BinarySearchTree");
 
-// using hash table with arrays
-const listOfDepths = (root, level = 0, result = {}) => {
+// using BFS
+const listOfDepths = root => {
+  let result = [];
   if (root === null) {
-    return;
+    return result;
   }
-  if (!result[level]) {
-    result[level] = [];
+  let parents = [];
+  parents.push(root);
+  while (parents.length > 0) {
+    result.push(parents); // add a level
+    let children = [];
+    parents.forEach(node => {
+      if (node.left) {
+        children.push(node.left);
+      }
+      if (node.right) {
+        children.push(node.right);
+      }
+    });
+    parents = children;
   }
-  result[level].push(root.value);
-  listOfDepths(root.left, level + 1, result);
-  listOfDepths(root.right, level + 1, result);
   return result;
 };
+
+// // using hash table with arrays
+// const listOfDepths = (root, level = 0, result = {}) => {
+//   if (root === null) {
+//     return;
+//   }
+//   if (!result[level]) {
+//     result[level] = [];
+//   }
+//   result[level].push(root.value);
+//   listOfDepths(root.left, level + 1, result);
+//   listOfDepths(root.right, level + 1, result);
+//   return result;
+// };
 
 // // using array with arrays
 // const listOfDepths = (root, level = 0, lists = []) => {
