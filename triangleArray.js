@@ -32,7 +32,7 @@ Const findMaxOfTriangle = (arr, start = 0, end = arr.length - 1) => {
   }
   Let mid = Math.ceil((start + end) / 2);
   Let isSortedLeft = isSorted(arr, start, mid, true); // should be mid-1 & mid
-  Let isSortedRight = isSorted(arr, mid+1, end, false); // should be mid+1 + mid+2?
+  Let isSortedRight = isSorted(arr, mid+1, end, false); // should be mid & mid+1?
   If (isSortedLeft && isSortedRight) {
     Return Math.max(arr[mid], arr[mid+1]);
   } else if (isSortedLeft) {
